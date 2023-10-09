@@ -70,6 +70,7 @@ module Lang.Type
     , stimulatorSegment
     ) where
 
+
 import Control.Lens (Plated(..))
 import Data.Bifunctor (Bifunctor(..))
 import Data.Generics.Product (the)
