@@ -3,7 +3,7 @@
 {-| This module provides a uniform interface for getting the console width using
     both GHC and GHCJS
 -}
-module Grace.Width
+module Lang.Width
     ( -- * Width
       getWidth
     , defaultWidth

@@ -6,7 +6,7 @@
 {-| This module contains the top-level `main` function that implements the
     command-line API
 -}
-module Grace
+module Lang
     ( -- * Main
       main
     ) where
@@ -18,10 +18,10 @@ import qualified Data.ByteString.Lazy.Char8 as BS
 import Data.Foldable (traverse_)
 import Data.Functor (void)
 import Data.Void (Void)
-import Grace.Interpret (Input(..))
-import Grace.Location (Location(..))
-import Grace.Syntax (Builtin(..), Syntax(..))
-import Grace.Type (Type(..))
+import Lang.Interpret (Input(..))
+import Lang.Location (Location(..))
+import Lang.Syntax (Builtin(..), Syntax(..))
+import Lang.Type (Type(..))
 import Options.Applicative (Parser, ParserInfo)
 import Prettyprinter (Doc)
 import Prettyprinter.Render.Terminal (AnsiStyle)
@@ -29,19 +29,19 @@ import Prettyprinter.Render.Terminal (AnsiStyle)
 import qualified Control.Monad.Except as Except
 import qualified Data.Text as Text
 import qualified Data.Text.IO as Text.IO
-import qualified Grace.HTTP as HTTP
-import qualified Grace.Infer as Infer
-import qualified Grace.Interpret as Interpret
-import qualified Grace.Monotype as Monotype
-import qualified Grace.Normalize as Normalize
-import qualified Grace.Parser as Parser
-import qualified Grace.Pretty
-import qualified Grace.REPL as REPL
-import qualified Grace.Server as Server
-import qualified Grace.Syntax as Syntax
-import qualified Grace.Type as Type
-import qualified Grace.Value as Value
-import qualified Grace.Width as Width
+import qualified Lang.HTTP as HTTP
+import qualified Lang.Infer as Infer
+import qualified Lang.Interpret as Interpret
+import qualified Lang.Monotype as Monotype
+import qualified Lang.Normalize as Normalize
+import qualified Lang.Parser as Parser
+import qualified Lang.Pretty
+import qualified Lang.REPL as REPL
+import qualified Lang.Server as Server
+import qualified Lang.Syntax as Syntax
+import qualified Lang.Type as Type
+import qualified Lang.Value as Value
+import qualified Lang.Width as Width
 import qualified Options.Applicative as Options
 import qualified Prettyprinter as Pretty
 import qualified System.Console.ANSI as ANSI
@@ -72,7 +72,7 @@ data Options
 parserInfo :: ParserInfo Options
 parserInfo =
     Options.info (Options.helper <*> parser)
-        (Options.progDesc "Command-line utility for the Grace language")
+        (Options.progDesc "Command-line utility for the nb-lang language")
 
 parser :: Parser Options
 parser = do
@@ -127,17 +127,17 @@ parser = do
     Options.hsubparser
         (   Options.command "interpret"
                 (Options.info interpret
-                    (Options.progDesc "Interpret a Grace file")
+                    (Options.progDesc "Interpret a nb-lang file")
                 )
 
         <>  Options.command "text"
                 (Options.info text
-                    (Options.progDesc "Render a Grace text literal")
+                    (Options.progDesc "Render a nb-lang text literal")
                 )
 
         <>  Options.command "format"
                 (Options.info format
-                    (Options.progDesc "Format Grace code")
+                    (Options.progDesc "Format nb-lang code")
                 )
 
         <>  Options.command "builtins"
@@ -146,7 +146,7 @@ parser = do
                 )
         <> Options.command "repl"
                 (Options.info repl
-                    (Options.progDesc "Enter a REPL for Grace")
+                    (Options.progDesc "Enter a REPL for nb-lang")
                 )
         <> Options.command "serve"
                 (Options.info serve
@@ -176,7 +176,7 @@ getRender highlight = do
     color <- detectColor highlight
     width <- Width.getWidth
 
-    return (Grace.Pretty.renderIO color width IO.stdout)
+    return (Lang.Pretty.renderIO color width IO.stdout)
 
 throws :: Exception e => Either e a -> IO a
 throws (Left e) = do
@@ -219,12 +219,12 @@ main = do
             if annotate
               then
                 BS.putStrLn $ Aeson.encode $ Aeson.object
-                    [ "value" Aeson..= show (Grace.Pretty.pretty syntax)
-                    , "type" Aeson..= show (Grace.Pretty.pretty inferred)
+                    [ "value" Aeson..= show (Lang.Pretty.pretty syntax)
+                    , "type" Aeson..= show (Lang.Pretty.pretty inferred)
                     ]
               else
 
-                render (Grace.Pretty.pretty annotatedExpression <> Pretty.hardline)
+                render (Lang.Pretty.pretty annotatedExpression <> Pretty.hardline)
 
         Text{..} -> do
             input <- case file of
@@ -268,7 +268,7 @@ main = do
 
                     render <- getRender highlight
 
-                    render (Grace.Pretty.pretty syntax <> Pretty.hardline)
+                    render (Lang.Pretty.pretty syntax <> Pretty.hardline)
                 _ -> do
                     let formatFile file = do
                             text <- Text.IO.readFile file
@@ -276,11 +276,11 @@ main = do
                             syntax <- throws (Parser.parse file text)
 
                             IO.withFile file IO.WriteMode \handle -> do
-                                Grace.Pretty.renderIO
+                                Lang.Pretty.renderIO
                                     False
                                     Width.defaultWidth
                                     handle
-                                    (Grace.Pretty.pretty syntax <> Pretty.hardline)
+                                    (Lang.Pretty.pretty syntax <> Pretty.hardline)
 
                     traverse_ formatFile files
 
@@ -293,10 +293,10 @@ main = do
                                     Location
                                         { name = "(input)"
                                         , code =
-                                            Grace.Pretty.renderStrict
+                                            Lang.Pretty.renderStrict
                                                 False
                                                 Width.defaultWidth
-                                                (Grace.Pretty.pretty builtin)
+                                                (Lang.Pretty.pretty builtin)
                                         , offset = 0
                                         }
                                 , ..
@@ -314,7 +314,7 @@ main = do
 
                     render <- getRender highlight
 
-                    render (Grace.Pretty.pretty annotated <> Pretty.hardline)
+                    render (Lang.Pretty.pretty annotated <> Pretty.hardline)
 
             let builtins = [ minBound .. maxBound ]
 
