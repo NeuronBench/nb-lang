@@ -23,5 +23,6 @@ jobs:
       with:
         name: neuronbench
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        extraPullNames: iog
     - name: Build native app
       run: nix build .#
