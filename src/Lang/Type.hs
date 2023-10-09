@@ -85,6 +85,7 @@ import Language.Haskell.TH.Syntax (Lift)
 import Prettyprinter (Doc)
 import Prettyprinter.Render.Terminal (AnsiStyle)
 
+
 import Lang.Monotype
     (Monotype, RemainingAlternatives(..), RemainingFields(..), Scalar(..))
 
