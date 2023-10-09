@@ -3,7 +3,7 @@
 {-# LANGUAGE RecordWildCards    #-}
 
 -- | This module contains the import resolution logic
-module Grace.Import
+module Lang.Import
     ( -- * Import resolution
       resolve
       -- * Entry deletion
@@ -22,10 +22,10 @@ import Data.IORef (IORef)
 import Data.List.NonEmpty (NonEmpty(..))
 import Data.Maybe (fromJust)
 import Data.Text (Text)
-import Grace.HTTP (HttpException, Manager)
-import Grace.Input (Input(..))
-import Grace.Location (Location(..))
-import Grace.Syntax (Syntax)
+import Lang.HTTP (HttpException, Manager)
+import Lang.Input (Input(..))
+import Lang.Location (Location(..))
+import Lang.Syntax (Syntax)
 import System.FilePath ((</>))
 import Text.URI (Authority)
 
@@ -35,9 +35,9 @@ import qualified Data.IORef as IORef
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Text as Text
 import qualified Data.Text.IO as Text.IO
-import qualified Grace.HTTP as HTTP
-import qualified Grace.Parser as Parser
-import qualified Grace.Pretty as Pretty
+import qualified Lang.HTTP as HTTP
+import qualified Lang.Parser as Parser
+import qualified Lang.Pretty as Pretty
 import qualified System.Environment as Environment
 import qualified System.IO.Unsafe as Unsafe
 import qualified Text.URI as URI

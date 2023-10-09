@@ -3,9 +3,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
 
--- | This module contains the implementation of the @grace repl@ subcommand
+-- | This module contains the implementation of the @nb-lang repl@ subcommand
 
-module Grace.REPL
+module Lang.REPL
     ( -- * REPL
       repl
     ) where
@@ -16,8 +16,8 @@ import Control.Monad.IO.Class (liftIO)
 import Control.Monad.State (MonadState(..))
 import Data.Foldable (toList)
 import Data.List.NonEmpty (NonEmpty(..))
-import Grace.Interpret (Input(..))
-import Grace.Lexer (reserved)
+import Lang.Interpret (Input(..))
+import Lang.Lexer (reserved)
 import System.Console.Haskeline (Interrupt(..))
 import System.Console.Repline (CompleterStyle(..), MultiLine(..), ReplOpts(..))
 
@@ -26,17 +26,17 @@ import qualified Control.Monad.Except as Except
 import qualified Control.Monad.State as State
 import qualified Data.Text as Text
 import qualified Data.Text.IO as Text.IO
-import qualified Grace.HTTP as HTTP
-import qualified Grace.Interpret as Interpret
-import qualified Grace.Normalize as Normalize
-import qualified Grace.Pretty as Pretty
-import qualified Grace.Type as Type
-import qualified Grace.Width as Width
+import qualified Lang.HTTP as HTTP
+import qualified Lang.Interpret as Interpret
+import qualified Lang.Normalize as Normalize
+import qualified Lang.Pretty as Pretty
+import qualified Lang.Type as Type
+import qualified Lang.Width as Width
 import qualified System.Console.Haskeline.Completion as Completion
 import qualified System.Console.Repline as Repline
 import qualified System.IO as IO
 
--- | Entrypoint for the @grace repl@ subcommand
+-- | Entrypoint for the @nb-lang repl@ subcommand
 repl :: IO ()
 repl = do
     manager <- HTTP.newManager

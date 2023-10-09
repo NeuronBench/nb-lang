@@ -5,7 +5,7 @@
 {-# LANGUAGE RecordWildCards    #-}
 {-# LANGUAGE TypeApplications   #-}
 
-{-| This module contains the logic for lexing Grace files.
+{-| This module contains the logic for lexing nb-lang files.
 
     The main reason for a separate lexing step using is because we would like
     to use @Earley@ for LR parsing, but @Earley@ is not fast enough to handle
@@ -18,7 +18,7 @@
     interactive type-checking.
 -}
 
-module Grace.Lexer
+module Lang.Lexer
     ( -- * Lexer
       Token(..)
     , LocatedToken(..)
@@ -40,7 +40,7 @@ import Data.Maybe (fromJust)
 import Data.Scientific (Scientific, toBoundedInteger)
 import Data.Text (Text)
 import Data.Void (Void)
-import Grace.Location (Location(..), Offset(..))
+import Lang.Location (Location(..), Offset(..))
 import Prelude hiding (lex)
 import Text.Megaparsec (ParseErrorBundle(..), try, (<?>))
 
@@ -51,7 +51,7 @@ import qualified Data.HashSet as HashSet
 import qualified Data.List as List
 import qualified Data.Text as Text
 import qualified Data.Text.Read as Read
-import qualified Grace.Location as Location
+import qualified Lang.Location as Location
 import qualified Text.Megaparsec as Megaparsec
 import qualified Text.Megaparsec.Char as Megaparsec.Char
 import qualified Text.Megaparsec.Char.Lexer as Lexer
@@ -131,14 +131,12 @@ parseToken =
             , NaturalEqual    <$ symbol "Natural/equal"
             , NaturalMod    <$ symbol "Natural/mod"
             , NaturalToInteger <$ symbol "Natural/toInteger"
-            , NeuronIonLevels <$ symbol "Neuron/ions"
-            , NeuronGating <$ symbol "Neuron/gating"
-            , NeuronChannel <$ symbol "Neuron/channel"
-            , NeuronMembrane <$ symbol "Neuron/membrane"
-            , NeuronNeuron <$ symbol "Neuron/neuron"
-            , NeuronStimulator <$ symbol "Neuron/stimulator"
-            , NeuronScene <$ symbol "Neuron/scene"
-            , NeuronSynapse <$ symbol "Neuron/synapse"
+            , Channel <$ symbol "Channel"
+            , Membrane <$ symbol "Membrane"
+            , Neuron <$ symbol "Neuron"
+            , Stimulator <$ symbol "Stimulator"
+            , Scene <$ symbol "Scene"
+            , Synapse <$ symbol "Synapse"
             , TextEqual      <$ symbol "Text/equal"
             , False_         <$ symbol "false"
             , True_          <$ symbol "true"
@@ -262,7 +260,7 @@ uri = (lexeme . try) do
 
     if any (`elem` schemes) (URI.uriScheme u)
         then return (URI u)
-        else fail "Unsupported Grace URI"
+        else fail "Unsupported nb-lang URI"
 
 text :: Parser Token
 text = lexeme do
@@ -524,14 +522,9 @@ data Token
     | NaturalMod
     | NaturalToInteger
     | Neuron
-    | NeuronIonLevels
-    | NeuronGating
-    | NeuronChannel
-    | NeuronMembrane
-    | NeuronNeuron
-    | NeuronStimulator
-    | NeuronScene
-    | NeuronSynapse
+    | Stimulator
+    | Scene
+    | Synapse
     | Null
     | OpenAngle
     | OpenBrace
@@ -540,9 +533,6 @@ data Token
     | Optional
     | Or
     | Plus
-    | Scene
-    | Stimulator
-    | Synapse
     | Text
     | TextEqual
     | TextLiteral Text

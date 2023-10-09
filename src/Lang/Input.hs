@@ -1,12 +1,12 @@
 -- | This module contains the functions and types that power to URI-base imports
-module Grace.Input
+module Lang.Input
     ( -- * Input
       Input(..)
     ) where
 
 import Data.List.NonEmpty (NonEmpty(..))
 import Data.Text (Text)
-import Grace.Pretty (Pretty(..))
+import Lang.Pretty (Pretty(..))
 import System.FilePath ((</>))
 
 import qualified Data.Text as Text

@@ -2,7 +2,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 
 -- | Pretty-printing logic
-module Grace.Pretty
+module Lang.Pretty
     ( -- * Prettyprinting
       renderStrict
     , renderIO

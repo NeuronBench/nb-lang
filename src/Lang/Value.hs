@@ -3,7 +3,7 @@
 {-| This module contains the `Value` type used internally for efficient
     evaluation of expressions
 -}
-module Grace.Value
+module Lang.Value
     ( -- * Value
       Closure(..)
     , Value(..)
@@ -15,14 +15,14 @@ import Data.HashMap.Strict.InsOrd (InsOrdHashMap)
 import Data.Sequence (Seq)
 import Data.String (IsString(..))
 import Data.Text (Text)
-import Grace.Location (Location)
-import Grace.Syntax (Builtin, Operator, Scalar, Syntax)
-import Grace.Type (Type)
+import Lang.Location (Location)
+import Lang.Syntax (Builtin, Operator, Scalar, Syntax)
+import Lang.Type (Type)
 
 import qualified Data.Aeson as Aeson
 import qualified Data.Sequence as Seq
-import qualified Grace.Compat as Compat
-import qualified Grace.Syntax as Syntax
+import qualified Lang.Compat as Compat
+import qualified Lang.Syntax as Syntax
 
 {-| A `Closure` captures the current evaluation environment in order to defer
     evaluation until the value of some bound variable is known
@@ -30,7 +30,7 @@ import qualified Grace.Syntax as Syntax
     You can think of @Closure name env expression@ as essentially the same thing
     as @\\value -> evaluate ((name, value) : env) e@, except stored using a
     first-order representation.  In fact, you convert to the latter
-    representation using `Grace.Normalize.instantiate`.
+    representation using `Lang.Normalize.instantiate`.
 
     This provides efficiency comparable to a higher-order abstract syntax
     tree, except using a first-order representation.
@@ -96,12 +96,12 @@ data Value
     | Builtin Builtin
     | Scalar Scalar
     | Operator Value Operator Value
-    | NeuronChannel Value
-    | NeuronMembrane Value
-    | NeuronNeuron Value
-    | NeuronStimulator Value
-    | NeuronScene Value
-    | NeuronSynapse Value
+    | Channel Value
+    | Membrane Value
+    | Neuron Value
+    | Stimulator Value
+    | Scene Value
+    | Synapse Value
     deriving stock (Eq, Show)
 
 instance IsString Value where

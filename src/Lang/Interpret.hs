@@ -6,7 +6,7 @@
 {-# LANGUAGE TypeApplications   #-}
 
 -- | This module implements the main interpretation function
-module Grace.Interpret
+module Lang.Interpret
     ( -- * Interpret
       Input(..)
     , interpret
@@ -20,29 +20,29 @@ import Control.Monad.Except (MonadError(..))
 import Control.Monad.IO.Class (MonadIO, liftIO)
 import Data.Maybe (fromJust)
 import Data.Text (Text)
-import Grace.HTTP (Manager)
-import Grace.Input (Input(..))
-import Grace.Location (Location(..))
-import Grace.Syntax (Syntax(..))
-import Grace.Type (Type)
-import Grace.Value (Value)
+import Lang.HTTP (Manager)
+import Lang.Input (Input(..))
+import Lang.Location (Location(..))
+import Lang.Syntax (Syntax(..))
+import Lang.Type (Type)
+import Lang.Value (Value)
 
 import qualified Control.Exception.Safe as Exception
 import qualified Control.Lens as Lens
 import qualified Control.Monad.Except as Except
-import qualified Grace.Context as Context
-import qualified Grace.HTTP as HTTP
-import qualified Grace.Import as Import
-import qualified Grace.Infer as Infer
-import qualified Grace.Normalize as Normalize
-import qualified Grace.Parser as Parser
-import qualified Grace.Syntax as Syntax
+import qualified Lang.Context as Context
+import qualified Lang.HTTP as HTTP
+import qualified Lang.Import as Import
+import qualified Lang.Infer as Infer
+import qualified Lang.Normalize as Normalize
+import qualified Lang.Parser as Parser
+import qualified Lang.Syntax as Syntax
 import qualified Text.URI as URI
 
-{-| Interpret Grace source code, return the inferred type and the evaluated
+{-| Interpret Lang source code, return the inferred type and the evaluated
     result
 
-    This is the top-level function for the Grace interpreter
+    This is the top-level function for the Lang interpreter
 -}
 interpret
     :: (MonadError InterpretError m, MonadIO m)

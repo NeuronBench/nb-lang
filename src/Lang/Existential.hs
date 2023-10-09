@@ -9,7 +9,7 @@
     We don't use naked `Int`s since (empirically) conflating the various
     existentials is a common source of type-checking errors.
 -}
-module Grace.Existential
+module Lang.Existential
     ( -- * Types
       Existential
       -- * Utilities
@@ -17,7 +17,7 @@ module Grace.Existential
     ) where
 
 import Data.Text (Text)
-import Grace.Pretty (Pretty(..), label)
+import Lang.Pretty (Pretty(..), label)
 import Language.Haskell.TH.Syntax (Lift)
 
 import qualified Data.Char as Char
@@ -28,9 +28,9 @@ import qualified Data.Text as Text
     The type variable is used to track what type of existential variable we're
     using, which will be one of these three types:
 
-    * @`Existential` "Grace.Monotype".Monotype@ - An existential type
-    * @`Existential` "Grace.Monotype".Record@ - An existential fields variable
-    * @`Existential` "Grace.Monotype".Union@ - An existential alternatives
+    * @`Existential` "Lang.Monotype".Monotype@ - An existential type
+    * @`Existential` "Lang.Monotype".Record@ - An existential fields variable
+    * @`Existential` "Lang.Monotype".Union@ - An existential alternatives
       variable
 -}
 newtype Existential a = UnsafeExistential Int

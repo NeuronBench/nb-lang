@@ -6,7 +6,7 @@
 
 -- | An internal utility module for backwards compatibility across GHC releases
 -- and different libary versions.
-module Grace.Compat where
+module Lang.Compat where
 
 import Data.HashMap.Strict.InsOrd (InsOrdHashMap)
 import Data.Text (Text)

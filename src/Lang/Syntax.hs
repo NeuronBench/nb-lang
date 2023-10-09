@@ -14,7 +14,7 @@
     result of parsing), representing the code as the user wrote it.
 -}
 
-module Grace.Syntax
+module Lang.Syntax
     ( -- * Syntax
       Syntax(..)
     , Scalar(..)
@@ -31,17 +31,17 @@ import Data.Sequence (Seq((:<|)))
 import Data.String (IsString(..))
 import Data.Text (Text)
 import GHC.Generics (Generic)
-import Grace.Compat ()  -- For an orphan instance for Lift (Seq a)
-import Grace.Pretty (Pretty(..), keyword, label, punctuation)
-import Grace.Type (Type)
+import Lang.Compat ()  -- For an orphan instance for Lift (Seq a)
+import Lang.Pretty (Pretty(..), keyword, label, punctuation)
+import Lang.Type (Type)
 import Language.Haskell.TH.Syntax (Lift)
 import Numeric.Natural (Natural)
 import Prettyprinter (Doc)
 import Prettyprinter.Render.Terminal (AnsiStyle)
 
 import qualified Data.Text as Text
-import qualified Grace.Pretty as Pretty
-import qualified Grace.Type as Type
+import qualified Lang.Pretty as Pretty
+import qualified Lang.Type as Type
 import qualified Prettyprinter as Pretty
 
 {- $setup
@@ -399,38 +399,30 @@ data Builtin
     -- ^
     --   >>> pretty NaturalToInteger
     --   Natural/toInteger
-    | NeuronIonLevels
+    | Channel
     -- ^
-    --   >>> pretty NeuronIonLevels
-    --   Neuron/ions
-    | NeuronGating
+    --   >>> pretty Channel
+    --   Channel
+    | Membrane
     -- ^
-    --   >>> pretty NeuronGating
-    --   Neuron/gating
-    | NeuronChannel
+    --   >>> pretty Membrane
+    --   Membrane
+    | Neuron
     -- ^
-    --   >>> pretty NeuronChannel
-    --   Neuron/channel
-    | NeuronMembrane
+    --   >>> pretty Neuron
+    --   Neuron
+    | Stimulator
     -- ^
-    --   >>> pretty NeuronMembrane
-    --   Neuron/membrane
-    | NeuronNeuron
+    --   >>> pretty Stimulator
+    --   Stimulator
+    | Scene
     -- ^
-    --   >>> pretty NeuronNeuron
-    --   Neuron/neuron
-    | NeuronStimulator
+    --   >>> pretty Scene
+    --   Scene
+    | Synapse
     -- ^
-    --   >>> pretty NeuronStimulator
-    --   Neuron/stimulator
-    | NeuronScene
-    -- ^
-    --   >>> pretty NeuronScene
-    --   Neuron/scene
-    | NeuronSynapse
-    -- ^
-    --   >>> pretty NeuronSynapse
-    --   Neuron/synapse
+    --   >>> pretty Synapse
+    --   Synapse
     | TextEqual
     -- ^
     --   >>> pretty TextEqual
@@ -465,14 +457,12 @@ instance Pretty Builtin where
     pretty NaturalEqual    = Pretty.builtin "Natural/equal"
     pretty NaturalMod      = Pretty.builtin "Natural/mod"
     pretty NaturalToInteger = Pretty.builtin "Natural/toInteger"
-    pretty NeuronIonLevels = Pretty.builtin "Neuron/ions"
-    pretty NeuronGating = Pretty.builtin "Neuron/gating"
-    pretty NeuronChannel = Pretty.builtin "Neuron/channel"
-    pretty NeuronMembrane = Pretty.builtin "Neuron/membrane"
-    pretty NeuronNeuron = Pretty.builtin "Neuron/neuron"
-    pretty NeuronStimulator = Pretty.builtin "Neuron/stimulator"
-    pretty NeuronScene = Pretty.builtin "Neuron/scene"
-    pretty NeuronSynapse = Pretty.builtin "Neuron/synapse"
+    pretty Channel = Pretty.builtin "Channel"
+    pretty Membrane = Pretty.builtin "Membrane"
+    pretty Neuron = Pretty.builtin "Neuron"
+    pretty Stimulator = Pretty.builtin "Stimulator"
+    pretty Scene = Pretty.builtin "Scene"
+    pretty Synapse = Pretty.builtin "Synapse"
 
     pretty TextEqual      = Pretty.builtin "Text/equal"
 

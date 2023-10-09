@@ -4,15 +4,15 @@
 {-# LANGUAGE OverloadedStrings  #-}
 
 {-| This module exists primarily to avoid a name clash with constructors of the
-    same name in the "Grace.Type" module
+    same name in the "Lang.Type" module
 -}
-module Grace.Domain
+module Lang.Domain
     ( -- * Domain
       Domain(..)
     ) where
 
 import GHC.Generics (Generic)
-import Grace.Pretty (Pretty(..), builtin)
+import Lang.Pretty (Pretty(..), builtin)
 import Language.Haskell.TH.Syntax (Lift)
 
 -- | The domain over which a @forall@ is quantified

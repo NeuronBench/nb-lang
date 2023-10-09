@@ -3,7 +3,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications #-}
 
-module Grace.Server where
+module Lang.Server where
 
 import Control.Exception.Safe (displayException)
 import qualified Control.Monad.Except as Except
@@ -26,11 +26,11 @@ import qualified Network.HTTP.Client.TLS as HTTP
 import qualified Network.Wai.Application.Static as Wai
 
 import qualified Data.ByteString.Builder as Builder
-import qualified Grace.Interpret as Interpret
-import Grace.Input (Input(Code))
-import qualified Grace.Import as GraceImport
-import qualified Grace.Normalize as Normalize
-import qualified Grace.Pretty as Pretty
+import qualified Lang.Interpret as Interpret
+import Lang.Input (Input(Code))
+import qualified Lang.Import as LangImport
+import qualified Lang.Normalize as Normalize
+import qualified Lang.Pretty as Pretty
 
 
 -- TODO: Harden (maxinum body length, encoding)
@@ -50,10 +50,10 @@ serve port = Warp.run port $ Cors.simpleCors $ \req respond ->
           respond $ Wai.responseLBS HTTP.status200 [] (LBS.fromStrict $ Text.encodeUtf8 response)
     ["delete-cache-line"] -> do
       inputPath <- Text.decodeUtf8 . LBS.toStrict <$> Wai.strictRequestBody req
-      GraceImport.deleteCacheLine inputPath
+      LangImport.deleteCacheLine inputPath
       respond $ Wai.responseLBS HTTP.status200 [] "Ok"
     ["reset-cache"] -> do
-      GraceImport.resetCache
+      LangImport.resetCache
       respond $ Wai.responseLBS HTTP.status200 [] "Ok"
     ["convert-swc"] -> do
       swcBytes <- Wai.lazyRequestBody req

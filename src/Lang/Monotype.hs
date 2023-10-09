@@ -7,7 +7,7 @@
 {-| This module stores the `Monotype` type representing monomorphic types and
     utilites for operating on `Monotype`s
 -}
-module Grace.Monotype
+module Lang.Monotype
     ( -- * Types
       Monotype(..)
     , Scalar(..)
@@ -20,14 +20,14 @@ module Grace.Monotype
 import Data.String (IsString(..))
 import Data.Text (Text)
 import GHC.Generics (Generic)
-import Grace.Existential (Existential)
-import Grace.Pretty (Pretty(..), builtin)
+import Lang.Existential (Existential)
+import Lang.Pretty (Pretty(..), builtin)
 import Language.Haskell.TH.Syntax (Lift)
 
 {-| A monomorphic type
 
-    This is same type as `Grace.Type.Type`, except without the
-    `Grace.Type.Forall` and `Grace.Type.Exists` constructors
+    This is same type as `Lang.Type.Type`, except without the
+    `Lang.Type.Forall` and `Lang.Type.Exists` constructors
 -}
 data Monotype
     = VariableType Text
@@ -80,8 +80,8 @@ data Scalar
     --
     -- >>> pretty NeuronChannel
     -- Channel
-    | NeuronMembrane
-    | NeuronNeuron
+    | Membrane
+    | Neuron
     | NeuronSynapse
     | NeuronStimulator
     | NeuronScene
@@ -95,8 +95,8 @@ instance Pretty Scalar where
     pretty Integer = builtin "Integer"
     pretty Text    = builtin "Text"
     pretty NeuronChannel = builtin "Channel"
-    pretty NeuronMembrane = builtin "Membrane"
-    pretty NeuronNeuron = builtin "Neuron"
+    pretty Membrane = builtin "Membrane"
+    pretty Neuron = builtin "Neuron"
     pretty NeuronStimulator = builtin "Stimulator"
     pretty NeuronScene = builtin "Scene"
     pretty NeuronSynapse = builtin "Synapse"
