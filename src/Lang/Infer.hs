@@ -20,7 +20,7 @@
 
     * This algorithm adds support for row polymorphic and polymorphic variants
 -}
-module Grace.Infer
+module Lang.Infer
     ( -- * Type inference
       typeOf
     , typeWith
@@ -37,28 +37,28 @@ import Data.Foldable (traverse_)
 import Data.Sequence (ViewL(..))
 import Data.Text (Text)
 import Data.Void (Void)
-import Grace.Context (Context, Entry)
-import Grace.Existential (Existential)
-import Grace.Location (Location(..))
-import Grace.Monotype (Monotype)
-import Grace.Pretty (Pretty(..))
-import Grace.Syntax (Syntax)
-import Grace.Type (Type(..))
-import Grace.Value (Value)
+import Lang.Context (Context, Entry)
+import Lang.Existential (Existential)
+import Lang.Location (Location(..))
+import Lang.Monotype (Monotype)
+import Lang.Pretty (Pretty(..))
+import Lang.Syntax (Syntax)
+import Lang.Type (Type(..))
+import Lang.Value (Value)
 
 import qualified Control.Monad as Monad
 import qualified Control.Monad.State as State
 import qualified Data.Map as Map
 import qualified Data.Sequence as Seq
 import qualified Data.Text as Text
-import qualified Grace.Context as Context
-import qualified Grace.Domain as Domain
-import qualified Grace.Location as Location
-import qualified Grace.Monotype as Monotype
-import qualified Grace.Pretty
-import qualified Grace.Syntax as Syntax
-import qualified Grace.Type as Type
-import qualified Grace.Width as Width
+import qualified Lang.Context as Context
+import qualified Lang.Domain as Domain
+import qualified Lang.Location as Location
+import qualified Lang.Monotype as Monotype
+import qualified Lang.Pretty
+import qualified Lang.Syntax as Syntax
+import qualified Lang.Type as Type
+import qualified Lang.Width as Width
 import qualified Prettyprinter as Pretty
 
 -- | Type-checking state
@@ -2623,5 +2623,4 @@ listToText elements =
     prettyEntry entry = prettyToText ("• " <> Pretty.align (pretty entry))
 
 prettyToText :: Pretty a => a -> Text
-prettyToText = Grace.Pretty.renderStrict False Width.defaultWidth
-
+prettyToText = Lang.Pretty.renderStrict False Width.defaultWidth

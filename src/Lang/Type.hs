@@ -15,7 +15,7 @@
 {-| This module stores the `Type` type representing polymorphic types and
     utilities for operating on `Type`s
 -}
-module Grace.Type
+module Lang.Type
     ( -- * Types
       Type(..)
     , Record(..)
@@ -77,21 +77,21 @@ import Data.Generics.Sum (_As)
 import Data.String (IsString(..))
 import Data.Text (Text)
 import GHC.Generics (Generic)
-import Grace.Domain (Domain)
-import Grace.Existential (Existential)
-import Grace.Pretty (Pretty(..), builtin, keyword, label, operator, punctuation)
+import Lang.Domain (Domain)
+import Lang.Existential (Existential)
+import Lang.Pretty (Pretty(..), builtin, keyword, label, operator, punctuation)
 import Language.Haskell.TH.Syntax (Lift)
 import Prettyprinter (Doc)
 import Prettyprinter.Render.Terminal (AnsiStyle)
 
-import Grace.Monotype
+import Lang.Monotype
     (Monotype, RemainingAlternatives(..), RemainingFields(..), Scalar(..))
 
 import qualified Control.Lens as Lens
 import qualified Data.Text as Text
-import qualified Grace.Domain as Domain
-import qualified Grace.Lexer as Lexer
-import qualified Grace.Monotype as Monotype
+import qualified Lang.Domain as Domain
+import qualified Lang.Lexer as Lexer
+import qualified Lang.Monotype as Monotype
 import qualified Prettyprinter as Pretty
 
 {- $setup

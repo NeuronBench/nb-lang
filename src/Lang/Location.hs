@@ -6,7 +6,7 @@
 {-| This module contains the `Location` type used for attaching source code to
     error messages
 -}
-module Grace.Location
+module Lang.Location
     ( -- * Location
       Location(..)
     , Offset(..)

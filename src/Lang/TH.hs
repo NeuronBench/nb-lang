@@ -2,7 +2,7 @@
      their times at compile-time.
 -}
 
-module Grace.TH
+module Lang.TH
     ( grace
       -- * Embedding an expression
     , expressionFromCode
@@ -17,17 +17,17 @@ module Grace.TH
 import Data.Functor (void)
 import Data.Text (Text)
 import Data.Void (Void)
-import Grace.Interpret (Input(..))
-import Grace.Syntax (Syntax)
-import Grace.Type (Type)
+import Lang.Interpret (Input(..))
+import Lang.Syntax (Syntax)
+import Lang.Type (Type)
 import Language.Haskell.TH.Quote (QuasiQuoter(..))
 import Language.Haskell.TH.Syntax (Lift, Q, TExp(..))
 
 import qualified Control.Exception.Safe as Exception
 import qualified Control.Monad.Except as Except
 import qualified Data.Text as Text
-import qualified Grace.Interpret as Interpret
-import qualified Grace.Normalize as Normalize
+import qualified Lang.Interpret as Interpret
+import qualified Lang.Normalize as Normalize
 import qualified Language.Haskell.TH as TH
 import qualified Language.Haskell.TH.Syntax as TH
 

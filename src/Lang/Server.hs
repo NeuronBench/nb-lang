@@ -3,7 +3,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications #-}
 
-module Grace.Server where
+module Lang.Server where
 
 import Control.Exception.Safe (displayException)
 import qualified Control.Monad.Except as Except
@@ -26,10 +26,10 @@ import qualified Network.HTTP.Client.TLS as HTTP
 import qualified Network.Wai.Application.Static as Wai
 
 import qualified Data.ByteString.Builder as Builder
-import qualified Grace.Interpret as Interpret
-import Grace.Input (Input(Code))
-import qualified Grace.Normalize as Normalize
-import qualified Grace.Pretty as Pretty
+import qualified Lang.Interpret as Interpret
+import Lang.Input (Input(Code))
+import qualified Lang.Normalize as Normalize
+import qualified Lang.Pretty as Pretty
 
 
 -- TODO: Harden (maxinum body length, encoding)

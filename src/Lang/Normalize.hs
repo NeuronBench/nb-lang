@@ -7,7 +7,7 @@
 {-# LANGUAGE ViewPatterns      #-}
 
 -- | This module contains the logic for efficiently evaluating an expression
-module Grace.Normalize
+module Lang.Normalize
     ( -- * Normalization
       evaluate
     , quote
@@ -18,10 +18,10 @@ import Data.Scientific (Scientific, fromFloatDigits, toRealFloat)
 import Data.Sequence (Seq(..), ViewL(..))
 import Data.Text (Text)
 import Data.Void (Void)
-import Grace.Location (Location)
-import Grace.Syntax (Builtin(..), Scalar(..), Syntax)
-import Grace.Type (Type)
-import Grace.Value (Closure(..), Value)
+import Lang.Location (Location)
+import Lang.Syntax (Builtin(..), Scalar(..), Syntax)
+import Lang.Type (Type)
+import Lang.Value (Closure(..), Value)
 import Prelude hiding (succ)
 
 import qualified Data.HashMap.Strict.InsOrd as HashMap
@@ -29,8 +29,8 @@ import qualified Data.List as List
 import qualified Data.Ord as Ord
 import qualified Data.Sequence as Seq
 import qualified Data.Text as Text
-import qualified Grace.Syntax as Syntax
-import qualified Grace.Value as Value
+import qualified Lang.Syntax as Syntax
+import qualified Lang.Value as Value
 
 {- $setup
 

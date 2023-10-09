@@ -14,7 +14,7 @@
     result of parsing), representing the code as the user wrote it.
 -}
 
-module Grace.Syntax
+module Lang.Syntax
     ( -- * Syntax
       Syntax(..)
     , Scalar(..)
@@ -31,17 +31,17 @@ import Data.Sequence (Seq((:<|)))
 import Data.String (IsString(..))
 import Data.Text (Text)
 import GHC.Generics (Generic)
-import Grace.Compat ()  -- For an orphan instance for Lift (Seq a)
-import Grace.Pretty (Pretty(..), keyword, label, punctuation)
-import Grace.Type (Type)
+import Lang.Compat ()  -- For an orphan instance for Lift (Seq a)
+import Lang.Pretty (Pretty(..), keyword, label, punctuation)
+import Lang.Type (Type)
 import Language.Haskell.TH.Syntax (Lift)
 import Numeric.Natural (Natural)
 import Prettyprinter (Doc)
 import Prettyprinter.Render.Terminal (AnsiStyle)
 
 import qualified Data.Text as Text
-import qualified Grace.Pretty as Pretty
-import qualified Grace.Type as Type
+import qualified Lang.Pretty as Pretty
+import qualified Lang.Type as Type
 import qualified Prettyprinter as Pretty
 
 {- $setup

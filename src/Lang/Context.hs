@@ -7,7 +7,7 @@
 {-| A `Context` is an ordered list of `Entry`s used as the state for the
     bidirectional type-checking algorithm
 -}
-module Grace.Context
+module Lang.Context
     ( -- * Types
       Entry(..)
     , Context
@@ -24,28 +24,28 @@ module Grace.Context
     ) where
 
 import Data.Text (Text)
-import Grace.Domain (Domain)
-import Grace.Existential (Existential)
-import Grace.Monotype (Monotype)
-import Grace.Pretty (Pretty(..), label, operator, punctuation)
-import Grace.Type (Type)
+import Lang.Domain (Domain)
+import Lang.Existential (Existential)
+import Lang.Monotype (Monotype)
+import Lang.Pretty (Pretty(..), label, operator, punctuation)
+import Lang.Type (Type)
 import Prelude hiding (lookup)
 import Prettyprinter (Doc)
 import Prettyprinter.Render.Terminal (AnsiStyle)
 
 import qualified Control.Monad as Monad
 import qualified Control.Monad.State.Strict as State
-import qualified Grace.Domain as Domain
-import qualified Grace.Existential as Existential
-import qualified Grace.Monotype as Monotype
-import qualified Grace.Type as Type
+import qualified Lang.Domain as Domain
+import qualified Lang.Existential as Existential
+import qualified Lang.Monotype as Monotype
+import qualified Lang.Type as Type
 import qualified Prettyprinter as Pretty
 
 {- $setup
 
    >>> :set -XOverloadedStrings
    >>> :set -XTypeApplications
-   >>> import Grace.Type (Record, Union)
+   >>> import Lang.Type (Record, Union)
 -}
 
 -- | An element of the `Context` list
@@ -271,7 +271,7 @@ solveRecord :: Context s -> Type.Record s -> Type.Record s
 solveRecord context oldFields = newFields
   where
     location =
-        error "Grace.Context.solveRecord: Internal error - Missing location field"
+        error "Lang.Context.solveRecord: Internal error - Missing location field"
 
     -- TODO: Come up with total solution
     Type.Record{ fields = newFields } =
@@ -295,7 +295,7 @@ solveUnion :: Context s -> Type.Union s -> Type.Union s
 solveUnion context oldAlternatives = newAlternatives
   where
     location =
-        error "Grace.Context.solveUnion: Internal error - Missing location field"
+        error "Lang.Context.solveUnion: Internal error - Missing location field"
 
     -- TODO: Come up with total solution
     Type.Union{ alternatives = newAlternatives } =
