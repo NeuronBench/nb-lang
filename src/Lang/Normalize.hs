@@ -418,7 +418,7 @@ apply
 
     -- Time constant variant is one of the recognized types of time constant function.
     isAlt :: Text.Text -> Bool
-    isAlt alt = alt == "Sigmoid" || alt ==  "LinearExp" || alt == "Instantaneous"
+    isAlt alt = alt == "Gaussian" || alt ==  "LinearExp" || alt == "Instantaneous"
 
     convertTimeConstant (Value.Application (Value.Alternative altName) (Value.Record fields)) | isAlt altName =
       Value.Record ( HashMap.insert "type" (Value.Scalar (Text altName)) fields )
@@ -561,7 +561,7 @@ apply (Value.Builtin Synapse)
       Value.Record ( HashMap.insert "type" (Value.Scalar (Text altName)) fields )
     convertTimeConstant x = error $ "Encountered invalid timeConstant: " ++ show x
     isAlt :: Text.Text -> Bool
-    isAlt alt = alt == "Sigmoid" || alt ==  "LinearExp" || alt == "Instantaneous"
+    isAlt alt = alt == "Gaussian" || alt ==  "LinearExp" || alt == "Instantaneous"
 
     convertTransmitterPumpParams
         (Value.Record (List.sortBy (Ord.comparing fst) . HashMap.toList ->

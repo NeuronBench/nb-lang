@@ -41,7 +41,7 @@ module Lang.Type
     , gatingRecord
     , timeConstant
     , magnitudeRecord
-    , vSigmoidRecord
+    , vGaussianRecord
     , linearExpRecord
     , membraneRecord
     , neuronRecord
@@ -904,13 +904,13 @@ timeConstant :: loc -> Type loc
 timeConstant location =
   Union { alternatives = Alternatives
   [("Instantaneous", unit location)
-  ,("Sigmoid", vSigmoidRecord location)
+  ,("Gaussian", vGaussianRecord location)
   ,("LinearExp", linearExpRecord location)
   ] Monotype.EmptyAlternatives
         , .. }
 
-vSigmoidRecord :: loc -> Type loc
-vSigmoidRecord location = Record {
+vGaussianRecord :: loc -> Type loc
+vGaussianRecord location = Record {
   fields = Fields
     [("v_at_max_tau_mv", real location)
     ,("c_base", real location)
