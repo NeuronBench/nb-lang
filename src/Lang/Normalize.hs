@@ -272,7 +272,7 @@ evaluate env syntax =
                         Value.Scalar (Integer (div m n))
                     | Just m <- asReal l
                     , Just n <- asReal r ->
-                        Value.Scalar (Real (m / n))
+                        Value.Scalar (Real (realToFrac $ roundTo12Places $ realToFrac m / realToFrac n))
                 _ ->
                     Value.Operator left' Syntax.Minus right'
           where
@@ -794,4 +794,4 @@ quote names value =
     location = ()
 
 roundTo12Places :: Double -> Double
-roundTo12Places x = realToFrac (round (x * 1e20) :: Integer) * 1e-20
+roundTo12Places x = realToFrac (round (x * 1e12) :: Integer) * 1e-12
